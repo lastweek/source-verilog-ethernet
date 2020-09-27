@@ -96,15 +96,15 @@ module fpga (
 // Clock and reset
 
 wire clk_300mhz_ibufg;
-wire clk_125mhz_mmcm_out;
 
 // Internal 125 MHz clock
+wire clk_125mhz_mmcm_out;
 wire clk_125mhz_int;
 wire rst_125mhz_int;
 
-// Internal 156.25 MHz clock
-wire clk_156mhz_int;
-wire rst_156mhz_int;
+// Internal 390.625 MHz clock
+wire clk_390mhz_int;
+wire rst_390mhz_int;
 
 wire mmcm_rst = 1'b0;
 wire mmcm_locked;
@@ -190,7 +190,7 @@ sync_reset #(
 sync_reset_125mhz_inst (
     .clk(clk_125mhz_int),
     .rst(~mmcm_locked),
-    .sync_reset_out(rst_125mhz_int)
+    .out(rst_125mhz_int)
 );
 
 // GPIO
@@ -341,7 +341,7 @@ BUFG_GT bufg_gt_tx_usrclk_inst (
     .O       (gt_txusrclk)
 );
 
-assign clk_156mhz_int = gt_txusrclk;
+assign clk_390mhz_int = gt_txusrclk;
 
 always @(posedge gt_txusrclk, posedge gt_tx_reset) begin
     if (gt_tx_reset) begin
@@ -382,10 +382,10 @@ endgenerate
 sync_reset #(
     .N(4)
 )
-sync_reset_156mhz_inst (
-    .clk(clk_156mhz_int),
+sync_reset_390mhz_inst (
+    .clk(clk_390mhz_int),
     .rst(~gt_reset_tx_done),
-    .sync_reset_out(rst_156mhz_int)
+    .out(rst_390mhz_int)
 );
 
 wire [5:0] qsfp_0_gt_txheader_0;
@@ -509,8 +509,8 @@ qsfp_gty_inst (
     .txprgdivresetdone_out(gt_txprgdivresetdone)
 );
 
-assign qsfp_0_tx_clk_0_int = clk_156mhz_int;
-assign qsfp_0_tx_rst_0_int = rst_156mhz_int;
+assign qsfp_0_tx_clk_0_int = clk_390mhz_int;
+assign qsfp_0_tx_rst_0_int = rst_390mhz_int;
 
 assign qsfp_0_rx_clk_0_int = gt_rxusrclk[4];
 
@@ -520,7 +520,7 @@ sync_reset #(
 qsfp_0_rx_rst_0_reset_sync_inst (
     .clk(qsfp_0_rx_clk_0_int),
     .rst(~gt_reset_rx_done),
-    .sync_reset_out(qsfp_0_rx_rst_0_int)
+    .out(qsfp_0_rx_rst_0_int)
 );
 
 eth_phy_10g #(
@@ -547,8 +547,8 @@ qsfp_0_phy_0_inst (
     .rx_high_ber()
 );
 
-assign qsfp_0_tx_clk_1_int = clk_156mhz_int;
-assign qsfp_0_tx_rst_1_int = rst_156mhz_int;
+assign qsfp_0_tx_clk_1_int = clk_390mhz_int;
+assign qsfp_0_tx_rst_1_int = rst_390mhz_int;
 
 assign qsfp_0_rx_clk_1_int = gt_rxusrclk[5];
 
@@ -558,7 +558,7 @@ sync_reset #(
 qsfp_0_rx_rst_1_reset_sync_inst (
     .clk(qsfp_0_rx_clk_1_int),
     .rst(~gt_reset_rx_done),
-    .sync_reset_out(qsfp_0_rx_rst_1_int)
+    .out(qsfp_0_rx_rst_1_int)
 );
 
 eth_phy_10g #(
@@ -585,8 +585,8 @@ qsfp_0_phy_1_inst (
     .rx_high_ber()
 );
 
-assign qsfp_0_tx_clk_2_int = clk_156mhz_int;
-assign qsfp_0_tx_rst_2_int = rst_156mhz_int;
+assign qsfp_0_tx_clk_2_int = clk_390mhz_int;
+assign qsfp_0_tx_rst_2_int = rst_390mhz_int;
 
 assign qsfp_0_rx_clk_2_int = gt_rxusrclk[6];
 
@@ -596,7 +596,7 @@ sync_reset #(
 qsfp_0_rx_rst_2_reset_sync_inst (
     .clk(qsfp_0_rx_clk_2_int),
     .rst(~gt_reset_rx_done),
-    .sync_reset_out(qsfp_0_rx_rst_2_int)
+    .out(qsfp_0_rx_rst_2_int)
 );
 
 eth_phy_10g #(
@@ -623,8 +623,8 @@ qsfp_0_phy_2_inst (
     .rx_high_ber()
 );
 
-assign qsfp_0_tx_clk_3_int = clk_156mhz_int;
-assign qsfp_0_tx_rst_3_int = rst_156mhz_int;
+assign qsfp_0_tx_clk_3_int = clk_390mhz_int;
+assign qsfp_0_tx_rst_3_int = rst_390mhz_int;
 
 assign qsfp_0_rx_clk_3_int = gt_rxusrclk[7];
 
@@ -634,7 +634,7 @@ sync_reset #(
 qsfp_0_rx_rst_3_reset_sync_inst (
     .clk(qsfp_0_rx_clk_3_int),
     .rst(~gt_reset_rx_done),
-    .sync_reset_out(qsfp_0_rx_rst_3_int)
+    .out(qsfp_0_rx_rst_3_int)
 );
 
 eth_phy_10g #(
@@ -661,8 +661,8 @@ qsfp_0_phy_3_inst (
     .rx_high_ber()
 );
 
-assign qsfp_1_tx_clk_0_int = clk_156mhz_int;
-assign qsfp_1_tx_rst_0_int = rst_156mhz_int;
+assign qsfp_1_tx_clk_0_int = clk_390mhz_int;
+assign qsfp_1_tx_rst_0_int = rst_390mhz_int;
 
 assign qsfp_1_rx_clk_0_int = gt_rxusrclk[0];
 
@@ -672,7 +672,7 @@ sync_reset #(
 qsfp_1_rx_rst_0_reset_sync_inst (
     .clk(qsfp_1_rx_clk_0_int),
     .rst(~gt_reset_rx_done),
-    .sync_reset_out(qsfp_1_rx_rst_0_int)
+    .out(qsfp_1_rx_rst_0_int)
 );
 
 eth_phy_10g #(
@@ -699,8 +699,8 @@ qsfp_1_phy_0_inst (
     .rx_high_ber()
 );
 
-assign qsfp_1_tx_clk_1_int = clk_156mhz_int;
-assign qsfp_1_tx_rst_1_int = rst_156mhz_int;
+assign qsfp_1_tx_clk_1_int = clk_390mhz_int;
+assign qsfp_1_tx_rst_1_int = rst_390mhz_int;
 
 assign qsfp_1_rx_clk_1_int = gt_rxusrclk[1];
 
@@ -710,7 +710,7 @@ sync_reset #(
 qsfp_1_rx_rst_1_reset_sync_inst (
     .clk(qsfp_1_rx_clk_1_int),
     .rst(~gt_reset_rx_done),
-    .sync_reset_out(qsfp_1_rx_rst_1_int)
+    .out(qsfp_1_rx_rst_1_int)
 );
 
 eth_phy_10g #(
@@ -737,8 +737,8 @@ qsfp_1_phy_1_inst (
     .rx_high_ber()
 );
 
-assign qsfp_1_tx_clk_2_int = clk_156mhz_int;
-assign qsfp_1_tx_rst_2_int = rst_156mhz_int;
+assign qsfp_1_tx_clk_2_int = clk_390mhz_int;
+assign qsfp_1_tx_rst_2_int = rst_390mhz_int;
 
 assign qsfp_1_rx_clk_2_int = gt_rxusrclk[2];
 
@@ -748,7 +748,7 @@ sync_reset #(
 qsfp_1_rx_rst_2_reset_sync_inst (
     .clk(qsfp_1_rx_clk_2_int),
     .rst(~gt_reset_rx_done),
-    .sync_reset_out(qsfp_1_rx_rst_2_int)
+    .out(qsfp_1_rx_rst_2_int)
 );
 
 eth_phy_10g #(
@@ -775,8 +775,8 @@ qsfp_1_phy_2_inst (
     .rx_high_ber()
 );
 
-assign qsfp_1_tx_clk_3_int = clk_156mhz_int;
-assign qsfp_1_tx_rst_3_int = rst_156mhz_int;
+assign qsfp_1_tx_clk_3_int = clk_390mhz_int;
+assign qsfp_1_tx_rst_3_int = rst_390mhz_int;
 
 assign qsfp_1_rx_clk_3_int = gt_rxusrclk[3];
 
@@ -786,7 +786,7 @@ sync_reset #(
 qsfp_1_rx_rst_3_reset_sync_inst (
     .clk(qsfp_1_rx_clk_3_int),
     .rst(~gt_reset_rx_done),
-    .sync_reset_out(qsfp_1_rx_rst_3_int)
+    .out(qsfp_1_rx_rst_3_int)
 );
 
 eth_phy_10g #(
@@ -819,11 +819,11 @@ assign front_led = {1'b0, qsfp_0_rx_block_lock_0};
 fpga_core
 core_inst (
     /*
-     * Clock: 156.25 MHz
+     * Clock: 390.625 MHz
      * Synchronous reset
      */
-    .clk(clk_156mhz_int),
-    .rst(rst_156mhz_int),
+    .clk(clk_390mhz_int),
+    .rst(rst_390mhz_int),
     /*
      * GPIO
      */

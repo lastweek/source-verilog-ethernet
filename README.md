@@ -30,16 +30,39 @@ module (ptp_clock_cdc) for transferring PTP time across clock domains, and a
 configurable PTP period output module for precisely generating arbitrary
 frequencies from PTP time.
 
+Example designs implementing a simple UDP echo server are included for the
+following boards:
+
+*  Alpha Data ADM-PCIE-9V3 (Xilinx Virtex UltraScale+ XCVU3P)
+*  Digilent Arty A7 (Xilinx Artix 7 XC7A35T)
+*  Digilent Atlys (Xilinx Spartan 6 XC6SLX45)
+*  Intel Cyclone 10 LP (Intel Cyclone 10 10CL025YU256I7G)
+*  Terasic DE2-115 (Intel Cyclone IV E EP4CE115F29C7)
+*  Terasic DE5-Net (Intel Stratix V 5SGXEA7N2F45C2)
+*  Exablaze ExaNIC X10 (Xilinx Kintex UltraScale XCKU035)
+*  Exablaze ExaNIC X25 (Xilinx Kintex UltraScale+ XCKU3P)
+*  HiTech Global HTG-V6HXT-100GIG-565 (Xilinx Virtex 6 XC6VHX565T)
+*  Silicom fb2CG@KU15P (Xilinx Kintex UltraScale+ XCKU15P)
+*  Xilinx KC705 (Xilinx Kintex 7 XC7K325T)
+*  Xilinx ML605 (Xilinx Virtex 6 XC6VLX240T)
+*  NetFPGA SUME (Xilinx Virtex 7 XC7V690T)
+*  Digilent Nexys Video (Xilinx Artix 7 XC7XC7A200T)
+*  Xilinx Alveo U50 (Xilinx Virtex UltraScale+ XCU50)
+*  Xilinx Alveo U200 (Xilinx Virtex UltraScale+ XCU200)
+*  Xilinx Alveo U250 (Xilinx Virtex UltraScale+ XCU250)
+*  Xilinx Alveo U280 (Xilinx Virtex UltraScale+ XCU280)
+*  Xilinx VCU108 (Xilinx Virtex UltraScale XCVU095)
+*  Xilinx VCU118 (Xilinx Virtex UltraScale+ XCVU9P)
+*  Xilinx VCU1525 (Xilinx Virtex UltraScale+ XCVU9P)
+*  Xilinx ZCU102 (Xilinx Zynq UltraScale+ XCZU9EG)
+*  Xilinx ZCU106 (Xilinx Zynq UltraScale+ XCZU7EV)
+
 ## Documentation
 
 ### arp module
 
-ARP handling logic with parametrizable retry timeout parameters.
-
-### arp_64 module
-
-ARP handling logic with parametrizable retry timeout parameters and 64 bit
-datapath for 10G/25G Ethernet.
+ARP handling logic with parametrizable retry timeout parameters and
+parametrizable datapath.
 
 ### arp_cache module
 
@@ -47,19 +70,11 @@ Basic hash-based cache for ARP entries.  Parametrizable depth.
 
 ### arp_eth_rx module
 
-ARP frame receiver.
-
-### arp_eth_rx_64 module
-
-ARP frame receiver with 64 bit datapath for 10G/25G Ethernet.
+ARP frame receiver with parametrizable datapath.
 
 ### arp_eth_tx module
 
-ARP frame transmitter.
-
-### arp_eth_tx_64 module
-
-ARP frame transmitter with 64 bit datapath for 10G/25G Ethernet.
+ARP frame transmitter with parametrizable datapath.
 
 ### axis_eth_fcs module
 
@@ -109,19 +124,11 @@ count.  Supports priority and round-robin arbitration.
 
 ### eth_axis_rx module
 
-Ethernet frame receiver.
-
-### eth_axis_rx_64 module
-
-Ethernet frame receiver with 64 bit datapath for 10G/25G Ethernet.
+Ethernet frame receiver with parametrizable datapath.
 
 ### eth_axis_tx module
 
-Ethernet frame transmitter.
-
-### eth_axis_tx_64 module
-
-Ethernet frame transmitter with 64 bit datapath for 10G/25G Ethernet.
+Ethernet frame transmitter with parametrizable datapath.
 
 ### eth_demux module
 
@@ -400,12 +407,9 @@ and data lines.
 ### Source Files
 
     rtl/arp.v                       : ARP handling logic
-    rtl/arp_64.v                    : ARP handling logic (64 bit)
     rtl/arp_cache.v                 : ARP LRU cache
     rtl/arp_eth_rx.v                : ARP frame receiver
-    rtl/arp_eth_rx_64.v             : ARP frame receiver (64 bit)
     rtl/arp_eth_tx.v                : ARP frame transmitter
-    rtl/arp_eth_tx_64.v             : ARP frame transmitter (64 bit)
     rtl/eth_arb_mux.py              : Ethernet frame arbitrated multiplexer generator
     rtl/axis_eth_fcs.v              : Ethernet FCS calculator
     rtl/axis_eth_fcs_64.v           : Ethernet FCS calculator (64 bit)
@@ -419,9 +423,7 @@ and data lines.
     rtl/axis_xgmii_tx_64.v          : AXI stream XGMII transmitter (64 bit)
     rtl/eth_arb_mux.v               : Ethernet frame arbitrated multiplexer
     rtl/eth_axis_rx.v               : Ethernet frame receiver
-    rtl/eth_axis_rx_64.v            : Ethernet frame receiver (64 bit)
     rtl/eth_axis_tx.v               : Ethernet frame transmitter
-    rtl/eth_axis_tx_64.v            : Ethernet frame transmitter (64 bit)
     rtl/eth_demux.v                 : Ethernet frame demultiplexer
     rtl/eth_mac_1g.v                : Gigabit Ethernet GMII MAC
     rtl/eth_mac_1g_fifo.v           : Gigabit Ethernet GMII MAC with FIFO

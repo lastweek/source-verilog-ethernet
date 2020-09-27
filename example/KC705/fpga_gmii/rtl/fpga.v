@@ -76,12 +76,11 @@ module fpga (
 // Clock and reset
 
 wire clk_200mhz_ibufg;
-wire clk_200mhz_bufg;
-wire clk_200mhz_mmcm_out;
 
 // Internal 125 MHz clock
+wire clk_mmcm_out;
 wire clk_int;
-wire rst_int;   
+wire rst_int;
 
 wire mmcm_rst = reset;
 wire mmcm_locked;
@@ -164,7 +163,7 @@ sync_reset #(
 sync_reset_inst (
     .clk(clk_int),
     .rst(~mmcm_locked),
-    .sync_reset_out(rst_int)
+    .out(rst_int)
 );
 
 // GPIO

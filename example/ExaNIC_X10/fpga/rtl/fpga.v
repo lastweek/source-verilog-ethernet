@@ -69,9 +69,9 @@ module fpga (
 // Clock and reset
 
 wire clk_100mhz_ibufg;
-wire clk_125mhz_mmcm_out;
 
 // Internal 125 MHz clock
+wire clk_125mhz_mmcm_out;
 wire clk_125mhz_int;
 wire rst_125mhz_int;
 
@@ -163,7 +163,7 @@ sync_reset #(
 sync_reset_125mhz_inst (
     .clk(clk_125mhz_int),
     .rst(~mmcm_locked),
-    .sync_reset_out(rst_125mhz_int)
+    .out(rst_125mhz_int)
 );
 
 // GPIO
@@ -304,23 +304,23 @@ sync_reset #(
 sync_reset_156mhz_inst (
     .clk(clk_156mhz_int),
     .rst(~gt_reset_tx_done),
-    .sync_reset_out(rst_156mhz_int)
+    .out(rst_156mhz_int)
 );
 
 wire [5:0] sfp_1_gt_txheader;
-wire [127:0] sfp_1_gt_txdata;
+wire [63:0] sfp_1_gt_txdata;
 wire sfp_1_gt_rxgearboxslip;
 wire [5:0] sfp_1_gt_rxheader;
 wire [1:0] sfp_1_gt_rxheadervalid;
-wire [127:0] sfp_1_gt_rxdata;
+wire [63:0] sfp_1_gt_rxdata;
 wire [1:0] sfp_1_gt_rxdatavalid;
 
 wire [5:0] sfp_2_gt_txheader;
-wire [127:0] sfp_2_gt_txdata;
+wire [63:0] sfp_2_gt_txdata;
 wire sfp_2_gt_rxgearboxslip;
 wire [5:0] sfp_2_gt_rxheader;
 wire [1:0] sfp_2_gt_rxheadervalid;
-wire [127:0] sfp_2_gt_rxdata;
+wire [63:0] sfp_2_gt_rxdata;
 wire [1:0] sfp_2_gt_rxdatavalid;
 
 gtwizard_ultrascale_0
@@ -353,7 +353,7 @@ sfp_gth_inst (
     .rxusrclk_in(gt_rxusrclk),
     .rxusrclk2_in(gt_rxusrclk2),
 
-    .txdata_in({sfp_2_gt_txdata, sfp_1_gt_txdata}),
+    .gtwiz_userdata_tx_in({sfp_2_gt_txdata, sfp_1_gt_txdata}),
     .txheader_in({sfp_2_gt_txheader, sfp_1_gt_txheader}),
     .txsequence_in({2{7'b0}}),
 
@@ -369,7 +369,7 @@ sfp_gth_inst (
     .rxpolarity_in(2'b00),
 
     .rxgearboxslip_in({sfp_2_gt_rxgearboxslip, sfp_1_gt_rxgearboxslip}),
-    .rxdata_out({sfp_2_gt_rxdata, sfp_1_gt_rxdata}),
+    .gtwiz_userdata_rx_out({sfp_2_gt_rxdata, sfp_1_gt_rxdata}),
     .rxdatavalid_out({sfp_2_gt_rxdatavalid, sfp_1_gt_rxdatavalid}),
     .rxheader_out({sfp_2_gt_rxheader, sfp_1_gt_rxheader}),
     .rxheadervalid_out({sfp_2_gt_rxheadervalid, sfp_1_gt_rxheadervalid}),
@@ -394,7 +394,7 @@ sync_reset #(
 sfp_1_rx_rst_reset_sync_inst (
     .clk(sfp_1_rx_clk_int),
     .rst(~gt_reset_rx_done),
-    .sync_reset_out(sfp_1_rx_rst_int)
+    .out(sfp_1_rx_rst_int)
 );
 
 eth_phy_10g #(
@@ -429,7 +429,7 @@ sync_reset #(
 sfp_2_rx_rst_reset_sync_inst (
     .clk(sfp_2_rx_clk_int),
     .rst(~gt_reset_rx_done),
-    .sync_reset_out(sfp_2_rx_rst_int)
+    .out(sfp_2_rx_rst_int)
 );
 
 eth_phy_10g #(
